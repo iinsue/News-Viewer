@@ -52,7 +52,7 @@ const NewsList = () => {
     return null;
   }
 
-  // articles 값이 유요할 때
+  // articles 값이 유효할 때
   return (
     <NewsListBlock>
       {articles.map((article) => (
