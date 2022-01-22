@@ -1,9 +1,13 @@
 import Categories from "../components/Categories";
 import NewsList from "../components/NewsList";
 
-const NewsPage = ({ match }) => {
+import { useParams } from "react-router-dom";
+
+const NewsPage = () => {
   // 카테고리가 선택되지 않았으면 기본값 all 사용
-  const category = match.params.category || "all";
+  const params = useParams();
+  console.log(params);
+  const category = params.category || "all";
 
   return (
     <>
