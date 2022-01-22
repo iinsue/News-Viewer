@@ -17,21 +17,24 @@ const NewsListBlock = styled.div`
   }
 `;
 
-const NewsList = () => {
-  // news API Key
-  const SECRET_KEY = process.env.REACT_APP_NEWS_API_KEY;
-
+const NewsList = ({ category }) => {
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // useEffect []
   useEffect(() => {
+    // news API Key
+    const SECRET_KEY = process.env.REACT_APP_NEWS_API_KEY;
+
     // async를 사용하는 함수 따로 선언
     const fetchData = async () => {
       setLoading(true);
       try {
+        const query = category === "all" ? "" : `&category=${category}`;
+
+        // Articles calling
         const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${SECRET_KEY}`
+          `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${SECRET_KEY}`
         );
         setArticles(response.data.articles);
       } catch (e) {
@@ -40,7 +43,7 @@ const NewsList = () => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [category]);
 
   // 대기 중일 때
   if (loading) {
